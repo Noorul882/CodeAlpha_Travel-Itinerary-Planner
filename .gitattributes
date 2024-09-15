@@ -1,2 +1,1 @@
-git add .gitattributes
-git commit -m "Update .gitattributes to set Java as main language"
+*.java linguist-language=Java
