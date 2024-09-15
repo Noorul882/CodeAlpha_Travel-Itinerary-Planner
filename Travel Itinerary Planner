@@ -1,0 +1,69 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Scanner;
+
+public class TravelItineraryPlanner {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input destinations
+        System.out.println("Enter your travel destinations (separate by commas):");
+        String[] destinations = scanner.nextLine().split(",");
+
+        // Input dates
+        System.out.println("Enter start date (yyyy-MM-dd):");
+        LocalDate startDate = LocalDate.parse(scanner.nextLine(), formatter);
+
+        System.out.println("Enter end date (yyyy-MM-dd):");
+        LocalDate endDate = LocalDate.parse(scanner.nextLine(), formatter);
+
+        // Input preferences
+        System.out.println("Enter your travel style (e.g., Adventure, Relaxation):");
+        String travelStyle = scanner.nextLine();
+
+        System.out.println("Enter your accommodation preference (e.g., Hotel, Hostel):");
+        String accommodation = scanner.nextLine();
+
+        System.out.println("Enter your daily food budget (in USD):");
+        double dailyFoodBudget = scanner.nextDouble();
+
+        System.out.println("Enter the estimated cost of activities per day (in USD):");
+        double dailyActivityCost = scanner.nextDouble();
+
+        System.out.println("Enter the estimated daily transportation cost (in USD):");
+        double dailyTransportationCost = scanner.nextDouble();
+
+        // Calculate days of travel
+        long numberOfDays = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+
+        // Calculate budget
+        double totalFoodCost = dailyFoodBudget * numberOfDays;
+        double totalActivityCost = dailyActivityCost * numberOfDays;
+        double totalTransportationCost = dailyTransportationCost * numberOfDays;
+        double totalBudget = totalFoodCost + totalActivityCost + totalTransportationCost;
+
+        // Display itinerary
+        System.out.println("\n--- Travel Itinerary ---");
+        System.out.println("Destinations:");
+        for (String destination : destinations) {
+            System.out.println("- " + destination.trim());
+        }
+        System.out.println("Travel Style: " + travelStyle);
+        System.out.println("Accommodation Preference: " + accommodation);
+        System.out.println("Start Date: " + startDate);
+        System.out.println("End Date: " + endDate);
+        System.out.println("Total Number of Days: " + numberOfDays);
+
+        System.out.println("\n--- Budget Calculation ---");
+        System.out.println("Estimated Food Cost: $" + totalFoodCost);
+        System.out.println("Estimated Activity Cost: $" + totalActivityCost);
+        System.out.println("Estimated Transportation Cost: $" + totalTransportationCost);
+        System.out.println("Total Estimated Budget: $" + totalBudget);
+
+        scanner.close();
+    }
+}
